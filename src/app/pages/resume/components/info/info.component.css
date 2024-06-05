@@ -1,0 +1,30 @@
+.form-container{
+    width: 90%;
+    max-width: 350px;
+    margin: auto;
+    display: grid;
+    grid-template-rows: .1fr .9fr;
+    box-shadow: 0 4px 8px #8f8f8f;
+    padding: 20px;
+    border-radius: 20px;
+    background-color:#2e404d ;
+}
+
+.form{
+    width: 90%;
+    max-width: 250px;
+}
+.search-btn{
+    padding: 6px;
+    width: 60%;
+    border: none;
+    border-radius: 30px;
+    justify-self: center;
+}
+.error-text{
+    color: #ff6257;
+    font-size: .8rem;
+  }
+  .disabled-btn{
+    background-color: #ffde7a;
+  }

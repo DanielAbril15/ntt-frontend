@@ -1,0 +1,33 @@
+<div class="form-container d-flex justify-content-center align-items-center">
+  <form
+    [formGroup]="dataForm"
+    class="form d-flex flex-column justify-content-center"
+  >
+    <div class="mb-3">
+      <label for="lastname" class="form-label text-white"
+        >Primer apellido</label
+      >
+      <input
+        id="lastname"
+        type="text"
+        class="form-control desible-input"
+        formControlName="lastName"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="fistName" class="form-label text-white">Primer nombre</label>
+      <input
+        id="fistName"
+        type="text"
+        class="form-control"
+        formControlName="firstName"
+      />
+    </div>
+    <button routerLink="/inicio" class="search-btn bg-warning mx-auto mt-3">
+      <span class="d-flex align-items-center justify-content-center gap-2">
+        <mat-icon class="material-symbols-outlined"> arrow_back </mat-icon>
+        Volver
+      </span>
+    </button>
+  </form>
+</div>

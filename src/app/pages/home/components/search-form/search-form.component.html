@@ -1,0 +1,36 @@
+<div class="form-container d-flex justify-content-center align-items-center">
+    <form [formGroup]="searchForm" class="form d-flex flex-column justify-content-center">
+      <div class="mb-3">
+        <label for="documentType" class="form-label text-white">Tipo de documento</label>
+        <select placeholder="Tipo  de documento"  id="documentType" class="form-select" required formControlName="documentType">
+          <option value="C">Cedula de ciudadanía</option>
+          <option value="P">Pasaporte</option>
+        </select>  
+      </div>
+      <div class="mb-3">
+        <label  for="document" class="form-label text-white">Número  de documento</label>
+        <input 
+        id="document"
+          type="text" 
+          class="form-control" 
+          onkeypress="return /[0-9]/i.test(event.key)"
+          formControlName="document"  
+          placeholder="Número  de documento" 
+          required>
+        @if (documentError) {
+          <div class="error-text mb-2">
+            {{documentError}}
+          </div>
+        }
+      </div>
+      <button
+      [disabled]="searchForm.invalid" 
+      [class.disabled-btn]="searchForm.invalid"
+      [class.bg-warning]="searchForm.valid"
+      class="search-btn  mx-auto mt-3"
+      (click)="onSearch()"
+      >
+        Buscar
+      </button>
+    </form>
+</div>

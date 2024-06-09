@@ -1,14 +1,25 @@
 import { Injectable } from '@angular/core';
-import { SearchData } from '../models/search.model';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchService {
 
-  constructor() { }
+  constructor(private httpClient:HttpClient) { }
 
-  saveDocumentData(data:string){
-    localStorage.setItem('documentSearch',data)
+  
+  saveUserData(data: any) {
+      sessionStorage.setItem('clientData', JSON.stringify(data));
+    }
+
+  getUsetStorage(){
+    let userData= sessionStorage.getItem('clientData')
+    return userData?JSON.parse(userData):null 
+  }
+  
+  getUserData(type:string,document:string){
+    return this.httpClient.get(`${environment.baseUrl}${environment.endpoints.user(type,document)}`)
   }
 }

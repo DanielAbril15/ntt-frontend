@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ErrorHandler } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SearchService } from '../../../../core/services/search.service';
 import { Router } from '@angular/router';
+import { catchError } from 'rxjs';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-search-form',
@@ -28,10 +30,34 @@ export class SearchFormComponent {
 
 
   onSearch(){
-    // this.searchSvc.saveDocumentData(this.searchForm.controls['document'].value)
-    console.log(this.searchForm.value);
-    
-    this.router.navigate(['/resumen']);
+    this.searchSvc.getUserData(this.searchForm.controls['documentType'].value,this.searchForm.controls['document'].value).pipe(
+      catchError((err:any)=>{
+        if (err.status === 400) {
+          Swal.fire({
+            title: 'Error!',
+            text: 'El tipo de documento no existe',
+            icon: 'error',
+          })
+        }else if(err.status === 404){
+          Swal.fire({
+            title: 'Error!',
+            text: 'El usuario no existe',
+            icon: 'error',
+          })
+        }else if(err.status === 500){
+          Swal.fire({
+            title: 'Error!',
+            text: 'La cedula no puede contener letras',
+            icon: 'error',
+          })
+        }
+        throw err
+      })
+    ).subscribe(res=>{
+      
+      this.searchSvc.saveUserData(res)
+      this.router.navigate(['/resumen']);
+    })
   }
 
 }
